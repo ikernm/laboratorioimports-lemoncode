@@ -29,6 +29,9 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-image: url(/src/images/fondo-mantel-casino.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 h1 {
@@ -76,11 +79,46 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #f50606;
 }
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.botones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.boton {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.623);
+}
+
+.boton:active {
+  transform: scale(0.9);
+}
+
+.boton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+#puntuacion {
+  padding: 3rem;
+  font-size: 1em;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+#mensaje {
+  color: #ffffff;
+}
+
+.oculto {
+  display: none;
 }
 
 @media (prefers-color-scheme: light) {
