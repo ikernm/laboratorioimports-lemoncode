@@ -1,12 +1,14 @@
 import "./style.css";
 
-import { nuevaPartida, dameCarta, probar, mePlanto } from "./motor";
-
 import {
     contenedorBotones,
     botonDameCarta,
     botonMePlanto,
-    botonNuevaPartida
+    botonNuevaPartida,
+    dameCarta,
+    mePlanto,
+    nuevaPartida,
+    probar
 } from "./ui";
 
 if (botonDameCarta && botonDameCarta instanceof HTMLButtonElement) {
