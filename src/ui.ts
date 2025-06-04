@@ -1,11 +1,12 @@
-import { puntos, actualizarPuntos } from "./modelo";
+import { partida, actualizarPuntos } from "./modelo";
 
-import { 
+import {
     dameNumeroAleatorio,
     dameNumeroCarta,
     damePuntosCarta,
-    sumarPuntos
- } from "./motor";
+    sumarPuntos,
+    gestionarEstadoPartida
+} from "./motor";
 
 export const botonDameCarta = document.getElementById("dame-carta");
 export const botonMePlanto = document.getElementById("me-planto");
@@ -14,7 +15,7 @@ export const elementoPuntuacion = document.getElementById("puntuacion");
 export const elementoImagen = document.getElementById("carta");
 export const elementoMensaje = document.getElementById("mensaje");
 
-export const obtenerUrlCarta = (carta:number):string => {
+export const obtenerUrlCarta = (carta: number): string => {
 
     switch (carta) {
         case 1:
@@ -42,19 +43,19 @@ export const obtenerUrlCarta = (carta:number):string => {
     }
 }
 
-export const mostrarPuntuacion = (puntos:number) => {
+export const mostrarPuntuacion = (puntos: number) => {
     if (elementoPuntuacion && elementoPuntuacion instanceof HTMLDivElement) {
         elementoPuntuacion.innerHTML = puntos.toString();
     }
 }
 
-export const mostrarCarta = (urlCarta:string) => {
+export const mostrarCarta = (urlCarta: string) => {
     if (elementoImagen && elementoImagen instanceof HTMLImageElement) {
         elementoImagen.src = urlCarta;
     }
 }
 
-export const mostrarMensaje = (mensaje:string) => {
+export const mostrarMensaje = (mensaje: string) => {
     if (elementoMensaje && elementoMensaje instanceof HTMLDivElement) {
         elementoMensaje.innerHTML = mensaje;
     }
@@ -95,16 +96,16 @@ export const botonesActivos = () => {
 export const ocultarBotonesPrincipales = () => {
     if (botonDameCarta && botonDameCarta instanceof HTMLButtonElement &&
         botonMePlanto && botonMePlanto instanceof HTMLButtonElement) {
-            botonDameCarta.style.display = "none";
-            botonMePlanto.style.display = "none";
+        botonDameCarta.style.display = "none";
+        botonMePlanto.style.display = "none";
     }
 }
 
 export const activarBotonesPrincipales = () => {
     if (botonDameCarta && botonDameCarta instanceof HTMLButtonElement &&
         botonMePlanto && botonMePlanto instanceof HTMLButtonElement) {
-            botonDameCarta.style.display = "block";
-            botonMePlanto.style.display = "block";
+        botonDameCarta.style.display = "block";
+        botonMePlanto.style.display = "block";
     }
 }
 
@@ -126,7 +127,7 @@ export const ocultarBotonProbar = () => {
 
 export const nuevaPartida = () => {
     actualizarPuntos(0);
-    mostrarPuntuacion(puntos);
+    mostrarPuntuacion(partida.puntos);
     mostrarCarta("/src/images/back.jpg");
     mostrarMensaje("");
     botonesActivos();
@@ -161,8 +162,8 @@ export const probar = () => {
     }
 }
 
-export const mePlanto = () => {  
-    const mensaje = dameMensajeCuandoMePlanto(puntos);
+export const mePlanto = () => {
+    const mensaje = dameMensajeCuandoMePlanto(partida.puntos);
     mostrarMensaje(mensaje);
     botonesInactivos();
     ocultarBotonesPrincipales();
@@ -170,11 +171,11 @@ export const mePlanto = () => {
 }
 
 export const gameOver = () => {
-    if (puntos === 7.5) {
+    if (gestionarEstadoPartida() === 'Ganar') {
         mostrarMensaje("¡¡Has ganado🎉🎉!!");
         botonesInactivos();
-    } else if (puntos > 7.5) {
-        mostrarMensaje("Has obtenido " + puntos + " puntos. Has perdido🫣");
+    } else if (gestionarEstadoPartida() === 'Perder') {
+        mostrarMensaje("Has obtenido " + partida.puntos + " puntos. Has perdido🫣");
         botonesInactivos();
     }
 }

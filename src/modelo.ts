@@ -1,5 +1,15 @@
-export let puntos = 0;
+export type EstadoPartida = 'Ganar' | 'Perder' | 'seguir_jugando';
 
-export const actualizarPuntos = (puntosSumados:number) => {
-    puntos = puntosSumados;
+interface Partida {
+    puntos: number,
+    estadoPartida: EstadoPartida,
+}
+
+export const partida: Partida = {
+    puntos: 0,
+    estadoPartida: 'seguir_jugando',
+}
+
+export const actualizarPuntos = (puntosSumados: number) => {
+    partida.puntos = puntosSumados;
 }
